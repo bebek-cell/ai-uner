@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI-UNER - Rekrutmen AI</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f0f2f5;
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            margin-bottom: 25px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2rem;
+        }
+
+        header p {
+            opacity: 0.9;
+            margin-top: 5px;
+        }
+
+        /* Card */
+        .card {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+            margin-bottom: 20px;
+        }
+
+        .card h2 {
+            font-size: 1.1rem;
+            color: #333;
+            margin-bottom: 12px;
+        }
+
+        /* Form */
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        @media (max-width: 700px) {
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: #555;
+            margin-bottom: 6px;
+        }
+
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            font-size: 0.9rem;
+            font-family: inherit;
+            resize: vertical;
+            min-height: 120px;
+            transition: border-color 0.3s;
+        }
+
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 14px 30px;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            transition: transform 0.2s;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* Loading */
+        .loading {
+            text-align: center;
+            padding: 30px;
+            display: none;
+        }
+
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #667eea;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 12px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Result */
+        .result {
+            display: none;
+            animation: fadeIn 0.4s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .score-box {
+            text-align: center;
+            padding: 20px 0;
+        }
+
+        .score-circle {
+            display: inline-block;
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            font-size: 2.8rem;
+            font-weight: bold;
+        }
+
+        .score-circle small {
+            font-size: 0.9rem;
+            font-weight: normal;
+            opacity: 0.9;
+        }
+
+        .detail-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        @media (max-width: 700px) {
+            .detail-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .detail-item {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 15px;
+        }
+
+        .detail-item h4 {
+            font-size: 0.8rem;
+            color: #888;
+            margin-bottom: 5px;
+        }
+
+        .detail-item p {
+            font-size: 0.95rem;
+            color: #333;
+        }
+
+        .detail-item ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .detail-item ul li {
+            padding: 3px 0;
+            font-size: 0.9rem;
+            color: #333;
+        }
+
+        .detail-item ul li::before {
+            content: "• ";
+            color: #667eea;
+        }
+
+        .tag {
+            display: inline-block;
+            padding: 2px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .tag.good {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .tag.bad {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        .tag.warning {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .full-width {
+            grid-column: 1 / -1;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            color: #888;
+            font-size: 0.8rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header>
+            <h1>🤖 AI-UNER</h1>
+            <p>AI-Powered Recruitment Matching</p>
+        </header>
+
+        <!-- Input -->
+        <div class="card">
+            <div class="form-row">
+                <div class="form-group">
+                    <label>📄 CV Kandidat</label>
+                    <textarea id="cvInput" placeholder="Masukkan CV...">Nama: Andi Pradana
+Skills: Excel, Word, Administrasi
+Pengalaman: Staff Admin 1 tahun
+Pendidikan: S1 Informatika
+Lokasi: Malang</textarea>
+                </div>
+                <div class="form-group">
+                    <label>💼 Deskripsi Pekerjaan</label>
+                    <textarea id="jobInput" placeholder="Masukkan lowongan...">Posisi: Admin Toko
+Skills: Excel, Word
+Pengalaman: 1 tahun
+Lokasi: Mojokerto</textarea>
+                </div>
+            </div>
+            <button class="btn" id="matchBtn">🔍 Match Sekarang</button>
+        </div>
+
+        <!-- Loading -->
+        <div class="card loading" id="loading">
+            <div class="spinner"></div>
+            <p style="color:#666;">AI sedang menganalisis...</p>
+        </div>
+
+        <!-- Result -->
+        <div class="card result" id="result">
+            <div class="score-box">
+                <div class="score-circle">
+                    <span id="score">0</span><small>%</small>
+                </div>
+                <p style="margin-top:8px;color:#888;font-size:0.9rem;">Match Score</p>
+            </div>
+
+            <div class="detail-grid">
+                <div class="detail-item">
+                    <h4>✅ Skill Cocok</h4>
+                    <ul id="matchedSkills"></ul>
+                </div>
+                <div class="detail-item">
+                    <h4>❌ Skill Kurang</h4>
+                    <ul id="missingSkills"></ul>
+                </div>
+                <div class="detail-item full-width">
+                    <h4>📝 Penjelasan</h4>
+                    <p id="reason">-</p>
+                </div>
+                <div class="detail-item full-width">
+                    <h4>💡 Rekomendasi</h4>
+                    <p id="recommendation">-</p>
+                </div>
+                <div class="detail-item">
+                    <h4>Skill Match</h4>
+                    <p id="skillMatch">-</p>
+                </div>
+                <div class="detail-item">
+                    <h4>Pengalaman</h4>
+                    <p id="expMatch">-</p>
+                </div>
+                <div class="detail-item">
+                    <h4>Pendidikan</h4>
+                    <p id="eduMatch">-</p>
+                </div>
+                <div class="detail-item">
+                    <h4>Lokasi</h4>
+                    <p id="locMatch">-</p>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            Powered by Google Gemini AI
+        </footer>
+    </div>
+
+    <script>
+        const API_URL = 'http://localhost:8000';
+
+        const cvInput = document.getElementById('cvInput');
+        const jobInput = document.getElementById('jobInput');
+        const matchBtn = document.getElementById('matchBtn');
+        const loading = document.getElementById('loading');
+        const result = document.getElementById('result');
+
+        matchBtn.addEventListener('click', async () => {
+            const cv = cvInput.value.trim();
+            const job = jobInput.value.trim();
+
+            if (!cv || !job) {
+                alert('Isi CV dan lowongan dulu!');
+                return;
+            }
+
+            // Show loading
+            loading.style.display = 'block';
+            result.style.display = 'none';
+            matchBtn.disabled = true;
+
+            try {
+                // Step 1: Analyze CV
+                const candidate = await analyzeCV(cv);
+                
+                // Step 2: Analyze Job
+                const jobData = await analyzeJob(job);
+                
+                // Step 3: Match
+                const matchResult = await match(candidate, jobData);
+                
+                // Step 4: Show result
+                showResult(matchResult);
+
+            } catch (err) {
+                alert('Error: ' + err.message);
+                console.error(err);
+            } finally {
+                loading.style.display = 'none';
+                matchBtn.disabled = false;
+            }
+        });
+
+        async function analyzeCV(text) {
+            const res = await fetch(`${API_URL}/api/analyze-cv`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ cv_text: text })
+            });
+            if (!res.ok) throw new Error('Analyze CV gagal');
+            return res.json();
+        }
+
+        async function analyzeJob(text) {
+            const res = await fetch(`${API_URL}/api/analyze-job`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ job_text: text })
+            });
+            if (!res.ok) throw new Error('Analyze Job gagal');
+            return res.json();
+        }
+
+        async function match(candidate, job) {
+            const res = await fetch(`${API_URL}/api/match`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ candidate, job })
+            });
+            if (!res.ok) throw new Error('Matching gagal');
+            return res.json();
+        }
+
+        function showResult(data) {
+            document.getElementById('score').textContent = data.match_score || 0;
+
+            const matched = document.getElementById('matchedSkills');
+            matched.innerHTML = '';
+            if (data.matched_skills?.length) {
+                data.matched_skills.forEach(s => {
+                    const li = document.createElement('li');
+                    li.textContent = s;
+                    matched.appendChild(li);
+                });
+            } else {
+                matched.innerHTML = '<li style="color:#888;">Tidak ada</li>';
+            }
+
+            const missing = document.getElementById('missingSkills');
+            missing.innerHTML = '';
+            if (data.missing_skills?.length) {
+                data.missing_skills.forEach(s => {
+                    const li = document.createElement('li');
+                    li.textContent = s;
+                    li.style.color = '#dc3545';
+                    missing.appendChild(li);
+                });
+            } else {
+                missing.innerHTML = '<li style="color:#28a745;">✨ Semua terpenuhi</li>';
+            }
+
+            document.getElementById('reason').textContent = data.reason || '-';
+            document.getElementById('recommendation').textContent = data.recommendation || '-';
+
+            document.getElementById('skillMatch').textContent = data.skill_match_details || '-';
+            document.getElementById('expMatch').textContent = data.experience_match || '-';
+            document.getElementById('eduMatch').textContent = data.education_match || '-';
+            document.getElementById('locMatch').textContent = data.location_match || '-';
+
+            result.style.display = 'block';
+            result.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+    </script>
+</body>
+</html>
