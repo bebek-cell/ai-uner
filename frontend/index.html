@@ -491,100 +491,307 @@
           &times;
         </button>
         <div class="demo-heading">
-          <span class="eyebrow">Demo NineteenJobs</span>
-          <h2 id="demoTitle">Temukan pekerjaan yang cocok</h2>
+          <span class="eyebrow">Simulasi NineteenJobs</span>
+          <h2 id="demoTitle">Mulai dari sisi yang kamu butuhkan</h2>
           <p>
-            Gunakan profil contoh ini untuk melihat cara kerja rekomendasi,
-            simpan lowongan, dan apply.
+            Platform yang menjembatani pencari kerja dan penyedia kerja dalam
+            satu alur yang transparan.
           </p>
         </div>
-        <div class="demo-toolbar">
-          <div class="demo-profile">
-            <span class="avatar small">A</span>
+
+        <div id="demoRoleStep" class="demo-step">
+          <div class="demo-role-grid">
+            <button
+              class="demo-role-card"
+              type="button"
+              data-demo-role="seeker"
+            >
+              <span class="demo-role-icon">↗</span>
+              <strong>Saya pencari kerja</strong>
+              <span
+                >Isi profil dan CV, dapatkan match, lalu pantau respon
+                perusahaan.</span
+              >
+            </button>
+            <button
+              class="demo-role-card"
+              type="button"
+              data-demo-role="employer"
+            >
+              <span class="demo-role-icon">⌁</span>
+              <strong>Saya penyedia kerja</strong>
+              <span
+                >Publikasikan lowongan dan temukan kandidat yang paling
+                relevan.</span
+              >
+            </button>
+          </div>
+        </div>
+
+        <form id="seekerDemoForm" class="demo-step demo-form" hidden>
+          <div class="demo-step-heading">
+            <span class="step-number">01</span>
             <div>
-              <strong>Axelia Agatha</strong>
-              <span>Product Designer • Jakarta</span>
+              <h3>Profil pencari kerja</h3>
+              <p>Ceritakan sedikit tentang dirimu agar match lebih akurat.</p>
             </div>
           </div>
-          <label class="demo-filter">
-            Role
-            <select id="demoRoleFilter">
-              <option value="all">Semua role</option>
-              <option value="design">Design</option>
-              <option value="engineering">Engineering</option>
-              <option value="marketing">Marketing</option>
-            </select>
+          <div class="demo-form-grid">
+            <label class="form-field"
+              >Nama lengkap<input
+                id="seekerName"
+                type="text"
+                placeholder="Contoh: Axelia Agatha"
+                required
+            /></label>
+            <label class="form-field"
+              >Email<input
+                id="seekerEmail"
+                type="email"
+                placeholder="nama@email.com"
+                required
+            /></label>
+            <label class="form-field"
+              >Role yang dicari<select id="seekerRole" required>
+                <option value="">Pilih role</option>
+                <option>Product Designer</option>
+                <option>Frontend Engineer</option>
+                <option>Product Analyst</option>
+                <option>Growth Marketing</option>
+              </select></label
+            >
+            <label class="form-field"
+              >Lokasi kerja<select id="seekerLocation">
+                <option>Remote</option>
+                <option>Jakarta</option>
+                <option>Bandung</option>
+                <option>Hybrid</option>
+              </select></label
+            >
+          </div>
+          <label class="cv-upload"
+            ><span class="upload-icon">↑</span
+            ><strong id="cvFileLabel">Upload CV / resume</strong
+            ><span>PDF atau DOCX, maksimal 10 MB</span
+            ><input id="seekerCv" type="file" accept=".pdf,.doc,.docx" required
+          /></label>
+          <div class="demo-form-actions">
+            <button class="mini-btn demo-back" type="button">Kembali</button
+            ><button class="btn btn-primary" type="submit">
+              Analisis Profil & CV
+            </button>
+          </div>
+        </form>
+
+        <form id="employerDemoForm" class="demo-step demo-form" hidden>
+          <div class="demo-step-heading">
+            <span class="step-number">01</span>
+            <div>
+              <h3>Profil penyedia kerja</h3>
+              <p>
+                Publikasikan kebutuhan tim dan biarkan sistem mencari
+                kandidatnya.
+              </p>
+            </div>
+          </div>
+          <div class="demo-form-grid">
+            <label class="form-field"
+              >Nama perusahaan<input
+                id="companyName"
+                type="text"
+                placeholder="Contoh: Northstar Labs"
+                required
+            /></label>
+            <label class="form-field"
+              >Email recruiter<input
+                id="companyEmail"
+                type="email"
+                placeholder="recruiter@company.com"
+                required
+            /></label>
+            <label class="form-field"
+              >Posisi yang dibuka<input
+                id="companyRole"
+                type="text"
+                placeholder="Contoh: Senior Product Designer"
+                required
+            /></label>
+            <label class="form-field"
+              >Model kerja<select id="companyLocation">
+                <option>Remote</option>
+                <option>Hybrid</option>
+                <option>On-site</option>
+              </select></label
+            >
+          </div>
+          <label class="form-field"
+            >Deskripsi pekerjaan<textarea
+              id="companyDescription"
+              rows="4"
+              placeholder="Tulis skill dan tanggung jawab utama..."
+              required
+            ></textarea>
           </label>
-        </div>
-        <div id="demoJobs" class="demo-jobs">
-          <article class="demo-job" data-role="design">
+          <div class="demo-form-actions">
+            <button class="mini-btn demo-back" type="button">Kembali</button
+            ><button class="btn btn-primary" type="submit">
+              Cari Kandidat
+            </button>
+          </div>
+        </form>
+
+        <div id="seekerDemoResult" class="demo-result" hidden>
+          <div class="result-banner success-banner">
+            <span class="result-icon">✓</span>
             <div>
-              <span class="chip success">96% Match</span>
-              <h3>Senior Product Designer</h3>
-              <p>Northstar Labs • Remote • Rp 14–18 jt</p>
-              <div class="tag-row">
-                <span>Figma</span><span>Design system</span>
+              <strong>Profil berhasil dianalisis</strong
+              ><span id="seekerResultSummary"
+                >Match ditemukan berdasarkan CV dan preferensimu.</span
+              >
+            </div>
+          </div>
+          <div class="result-grid">
+            <div class="result-score">
+              <small>CV health score</small><strong>84<span>/100</span></strong
+              ><span class="score-up">+18% setelah optimasi AI</span>
+            </div>
+            <div class="result-insight">
+              <small>AI menemukan kekuatanmu</small
+              ><strong
+                >Product thinking, Figma, dan kolaborasi lintas tim</strong
+              ><span
+                >Yang perlu diperkuat: impact metrics dan keyword ATS.</span
+              >
+            </div>
+          </div>
+          <div class="result-section-title">
+            <div>
+              <small>Rekomendasi untukmu</small>
+              <h3>3 perusahaan tertarik dengan profilmu</h3>
+            </div>
+            <span class="chip success">89% average match</span>
+          </div>
+          <div class="response-list">
+            <article>
+              <div class="avatar small">N</div>
+              <div>
+                <strong>Northstar Labs</strong
+                ><span>Senior Product Designer • 96% match</span
+                ><small
+                  >“Kami ingin mengundangmu ke tahap portfolio review.”</small
+                >
               </div>
-            </div>
-            <div class="demo-job-actions">
-              <button
-                class="save-job mini-btn"
-                type="button"
-                aria-label="Simpan Senior Product Designer"
-              >
-                ♡
+              <button class="mini-btn response-action" type="button">
+                Lihat detail
               </button>
-              <button class="apply-job btn btn-primary" type="button">
-                Apply
-              </button>
-            </div>
-          </article>
-          <article class="demo-job" data-role="engineering">
-            <div>
-              <span class="chip success">94% Match</span>
-              <h3>Frontend Engineer</h3>
-              <p>Bytewise Studio • Hybrid • Rp 12–16 jt</p>
-              <div class="tag-row">
-                <span>React</span><span>TypeScript</span>
+            </article>
+            <article>
+              <div class="avatar small alt">V</div>
+              <div>
+                <strong>Velora Labs</strong
+                ><span>Product Analyst • 82% match</span
+                ><small>Status: profil sedang direview recruiter</small>
               </div>
-            </div>
-            <div class="demo-job-actions">
-              <button
-                class="save-job mini-btn"
-                type="button"
-                aria-label="Simpan Frontend Engineer"
-              >
-                ♡
+              <button class="mini-btn response-action" type="button">
+                Pantau
               </button>
-              <button class="apply-job btn btn-primary" type="button">
-                Apply
-              </button>
-            </div>
-          </article>
-          <article class="demo-job" data-role="marketing">
+            </article>
+          </div>
+          <div class="paid-feature">
+            <span class="paid-badge">PRO</span>
             <div>
-              <span class="chip success">89% Match</span>
-              <h3>Growth Marketing Lead</h3>
-              <p>Bloomify • On-site • Rp 13–17 jt</p>
-              <div class="tag-row"><span>SEO</span><span>CRM</span></div>
-            </div>
-            <div class="demo-job-actions">
-              <button
-                class="save-job mini-btn"
-                type="button"
-                aria-label="Simpan Growth Marketing Lead"
+              <strong>Perbaiki CV dengan AI</strong
+              ><span
+                >Dapatkan 7 saran spesifik untuk menaikkan skor ATS dan peluang
+                interview.</span
               >
-                ♡
-              </button>
-              <button class="apply-job btn btn-primary" type="button">
-                Apply
-              </button>
             </div>
-          </article>
+            <button id="unlockCvAi" class="btn btn-primary" type="button">
+              Coba AI Pro
+            </button>
+          </div>
+          <button class="mini-btn demo-restart" type="button">
+            Coba peran lain
+          </button>
         </div>
-        <p id="demoMessage" class="demo-message" role="status">
-          Pilih filter untuk melihat rekomendasi yang lebih spesifik.
-        </p>
+
+        <div id="employerDemoResult" class="demo-result" hidden>
+          <div class="result-banner success-banner">
+            <span class="result-icon">✓</span>
+            <div>
+              <strong>Lowongan siap ditayangkan</strong
+              ><span id="employerResultSummary"
+                >NineteenJobs menemukan kandidat terbaik untuk
+                kebutuhanmu.</span
+              >
+            </div>
+          </div>
+          <div class="result-section-title">
+            <div>
+              <small>Candidate matching</small>
+              <h3>2 kandidat paling relevan</h3>
+            </div>
+            <span class="chip success">AI ranked</span>
+          </div>
+          <div class="candidate-list">
+            <article>
+              <div class="avatar small">R</div>
+              <div>
+                <strong>Raka Pratama</strong
+                ><span>Product Designer • 96% match</span
+                ><small>Figma, design systems, 5 tahun pengalaman</small>
+              </div>
+              <button class="mini-btn response-action" type="button">
+                Hubungi
+              </button>
+            </article>
+            <article>
+              <div class="avatar small alt">S</div>
+              <div>
+                <strong>Salsa Putri</strong
+                ><span>Product Designer • 91% match</span
+                ><small>Research, prototyping, dan mobile product</small>
+              </div>
+              <button class="mini-btn response-action" type="button">
+                Hubungi
+              </button>
+            </article>
+          </div>
+          <div class="paid-feature">
+            <span class="paid-badge">BOOST</span>
+            <div>
+              <strong>Pin lowongan di beranda pencari kerja</strong
+              ><span
+                >Posisikan lowongan di paling atas dan dapatkan rekomendasi
+                prioritas selama 7 hari.</span
+              >
+            </div>
+            <button id="pinJobButton" class="btn btn-primary" type="button">
+              Pin lowongan
+            </button>
+          </div>
+          <div class="paid-feature">
+            <span class="paid-badge">AI</span>
+            <div>
+              <strong>AI screening otomatis</strong
+              ><span
+                >Urutkan kandidat berdasarkan skill, pengalaman, dan kecocokan
+                deskripsi kerja.</span
+              >
+            </div>
+            <button
+              id="unlockScreening"
+              class="btn btn-secondary"
+              type="button"
+            >
+              Aktifkan Pro
+            </button>
+          </div>
+          <button class="mini-btn demo-restart" type="button">
+            Coba peran lain
+          </button>
+        </div>
+        <p id="demoMessage" class="demo-message" role="status"></p>
       </section>
     </div>
 
@@ -710,15 +917,28 @@
 
       const demoModal = document.getElementById("demoModal");
       const demoMessage = document.getElementById("demoMessage");
+      const demoRoleStep = document.getElementById("demoRoleStep");
+      const seekerDemoForm = document.getElementById("seekerDemoForm");
+      const employerDemoForm = document.getElementById("employerDemoForm");
+      const seekerDemoResult = document.getElementById("seekerDemoResult");
+      const employerDemoResult = document.getElementById("employerDemoResult");
+
+      function resetDemo() {
+        demoRoleStep.hidden = false;
+        seekerDemoForm.hidden = true;
+        employerDemoForm.hidden = true;
+        seekerDemoResult.hidden = true;
+        employerDemoResult.hidden = true;
+        seekerDemoForm.reset();
+        employerDemoForm.reset();
+        document.getElementById("cvFileLabel").textContent =
+          "Upload CV / resume";
+        demoMessage.textContent = "Pilih peran untuk memulai simulasi.";
+      }
 
       function openDemo() {
         demoModal.hidden = false;
-        document.getElementById("demoRoleFilter").value = "all";
-        document.querySelectorAll(".demo-job").forEach((job) => {
-          job.hidden = false;
-        });
-        demoMessage.textContent =
-          "Pilih filter untuk melihat rekomendasi yang lebih spesifik.";
+        resetDemo();
       }
 
       function closeDemo() {
@@ -733,38 +953,92 @@
         if (event.target === demoModal) closeDemo();
       });
 
+      document.querySelectorAll("[data-demo-role]").forEach((button) => {
+        button.addEventListener("click", () => {
+          demoRoleStep.hidden = true;
+          const isSeeker = button.dataset.demoRole === "seeker";
+          seekerDemoForm.hidden = !isSeeker;
+          employerDemoForm.hidden = isSeeker;
+          demoMessage.textContent = isSeeker
+            ? "Lengkapi data dan upload CV untuk melihat hasil analisis."
+            : "Masukkan kebutuhan rekrutmen untuk melihat kandidat yang cocok.";
+        });
+      });
+
+      document.querySelectorAll(".demo-back").forEach((button) => {
+        button.addEventListener("click", resetDemo);
+      });
+
       document
-        .getElementById("demoRoleFilter")
+        .getElementById("seekerCv")
         .addEventListener("change", (event) => {
-          const role = event.target.value;
-          let visibleJobs = 0;
-          document.querySelectorAll(".demo-job").forEach((job) => {
-            const visible = role === "all" || job.dataset.role === role;
-            job.hidden = !visible;
-            if (visible) visibleJobs += 1;
-          });
-          demoMessage.textContent = `${visibleJobs} rekomendasi ditemukan untuk profil Axelia.`;
+          const file = event.target.files[0];
+          if (file)
+            document.getElementById("cvFileLabel").textContent = file.name;
         });
 
-      document.querySelectorAll(".save-job").forEach((button) => {
-        button.addEventListener("click", () => {
-          const saved = button.classList.toggle("saved");
-          button.textContent = saved ? "♥" : "♡";
-          demoMessage.textContent = saved
-            ? "Lowongan disimpan ke daftar favorit demo."
-            : "Lowongan dihapus dari daftar favorit demo.";
-        });
+      seekerDemoForm.addEventListener("submit", (event) => {
+        event.preventDefault();
+        const name = document.getElementById("seekerName").value.trim();
+        const role = document.getElementById("seekerRole").value;
+        document.getElementById("seekerResultSummary").textContent =
+          `${name}, CV-mu cocok untuk role ${role}. Ini simulasi respon yang akan kamu terima.`;
+        seekerDemoForm.hidden = true;
+        seekerDemoResult.hidden = false;
+        demoMessage.textContent =
+          "Analisis selesai. Lihat score, match, dan respon perusahaan di bawah.";
       });
 
-      document.querySelectorAll(".apply-job").forEach((button) => {
+      employerDemoForm.addEventListener("submit", (event) => {
+        event.preventDefault();
+        const company = document.getElementById("companyName").value.trim();
+        const role = document.getElementById("companyRole").value.trim();
+        document.getElementById("employerResultSummary").textContent =
+          `${company} • ${role} sudah diproses. Kandidat diurutkan berdasarkan kecocokan skill.`;
+        employerDemoForm.hidden = true;
+        employerDemoResult.hidden = false;
+        demoMessage.textContent =
+          "Matching kandidat selesai. Coba fitur berbayar untuk memperluas jangkauan.";
+      });
+
+      document.querySelectorAll(".demo-restart").forEach((button) => {
+        button.addEventListener("click", resetDemo);
+      });
+
+      document.querySelectorAll(".response-action").forEach((button) => {
         button.addEventListener("click", () => {
-          button.textContent = "Applied ✓";
-          button.classList.add("applied");
+          button.textContent =
+            button.textContent === "Hubungi" ? "Pesan terkirim ✓" : "Terbuka ✓";
           button.disabled = true;
-          demoMessage.textContent =
-            "Lamaran demo berhasil dikirim. Buat akun untuk menyimpan progress-mu.";
         });
       });
+
+      document
+        .getElementById("unlockCvAi")
+        .addEventListener("click", (event) => {
+          event.currentTarget.textContent = "AI Pro aktif ✓";
+          event.currentTarget.disabled = true;
+          demoMessage.textContent =
+            "AI Pro aktif: 7 rekomendasi perbaikan CV tersedia.";
+        });
+
+      document
+        .getElementById("pinJobButton")
+        .addEventListener("click", (event) => {
+          event.currentTarget.textContent = "Pinned ✓";
+          event.currentTarget.disabled = true;
+          demoMessage.textContent =
+            "Lowongan dipin di beranda pencari kerja selama 7 hari.";
+        });
+
+      document
+        .getElementById("unlockScreening")
+        .addEventListener("click", (event) => {
+          event.currentTarget.textContent = "Screening aktif ✓";
+          event.currentTarget.disabled = true;
+          demoMessage.textContent =
+            "AI screening aktif: kandidat akan otomatis diurutkan.";
+        });
 
       document.querySelectorAll("[data-auth-mode]").forEach((tab) => {
         tab.addEventListener("click", () => openAuth(tab.dataset.authMode));
