@@ -3,10 +3,10 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>NineteenJobs | AI JobHunter Platform</title>
+    <title>NineteenJobs | AI Career Platform</title>
     <meta
       name="description"
-      content="Platform AI headhunter modern untuk pencari kerja dan perusahaan dengan rekomendasi kerja cerdas, screening otomatis, dan pengalaman yang lebih cepat."
+      content="NineteenJobs membantu talenta menemukan pekerjaan yang paling cocok dengan rekomendasi karier berbasis AI."
     />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -23,7 +23,7 @@
           <div class="brand-mark">19</div>
           <div class="brand-text">
             <span>NineteenJobs</span>
-            <small>AI</small>
+            <small>CAREER AI</small>
           </div>
         </div>
 
@@ -43,8 +43,12 @@
           >
             <span class="theme-icon">☀️</span>
           </button>
-          <button class="btn btn-ghost">Masuk</button>
-          <button class="btn btn-primary">Coba Gratis</button>
+          <button id="loginButton" class="btn btn-ghost" type="button">
+            Masuk
+          </button>
+          <button id="signupButton" class="btn btn-primary" type="button">
+            Coba Gratis
+          </button>
         </div>
       </header>
 
@@ -63,8 +67,20 @@
             </p>
 
             <div class="cta-group">
-              <button class="btn btn-primary large">Mulai Karier</button>
-              <button class="btn btn-secondary large">Lihat Demo</button>
+              <button
+                id="heroSignupButton"
+                class="btn btn-primary large"
+                type="button"
+              >
+                Mulai Karier
+              </button>
+              <button
+                id="demoButton"
+                class="btn btn-secondary large"
+                type="button"
+              >
+                Lihat Demo
+              </button>
             </div>
 
             <div class="mini-metric-row">
@@ -95,7 +111,7 @@
                 <div class="profile-card">
                   <div class="avatar">A</div>
                   <div>
-                    <h3>Joko Santoso</h3>
+                    <h3>Axelia Agatha</h3>
                     <p>Product Designer • Remote</p>
                   </div>
                 </div>
@@ -157,7 +173,7 @@
 
         <section id="fitur" class="feature-section">
           <div class="section-heading">
-            <span class="eyebrow">Kenapa NineteenJobs AI?</span>
+            <span class="eyebrow">Kenapa NineteenJobs?</span>
             <h2>Semua yang dibutuhkan untuk hiring yang lebih cerdas.</h2>
           </div>
 
@@ -175,8 +191,8 @@
               <div class="icon-box purple">🧠</div>
               <h3>Screening Otomatis</h3>
               <p>
-                NineteenJobs memprioritaskan kandidat terbaik dan menyingkat waktu
-                review recruiter secara signifikan.
+                NineteenJobs memprioritaskan kandidat terbaik dan menyingkat
+                waktu review recruiter secara signifikan.
               </p>
             </article>
 
@@ -354,20 +370,222 @@
             <span class="eyebrow light">Siap mulai?</span>
             <h2>Bangun karier berikutnya dengan teknologi yang tepat.</h2>
           </div>
-          <button class="btn btn-primary large">Daftar Sekarang</button>
+          <button
+            id="ctaSignupButton"
+            class="btn btn-primary large"
+            type="button"
+          >
+            Daftar Sekarang
+          </button>
         </section>
       </main>
 
       <footer class="site-footer">
         <div class="brand-wrap">
-          <div class="brand-mark">H</div>
+          <div class="brand-mark">19</div>
           <div class="brand-text">
-            <span>HireFlow</span>
-            <small>AI</small>
+            <span>NineteenJobs</span>
+            <small>CAREER AI</small>
           </div>
         </div>
-        <p>© 2026 NineteenJobs AI. Semua hak dilindungi.</p>
+        <p>© 2026 NineteenJobs. Semua hak dilindungi.</p>
       </footer>
+    </div>
+
+    <div id="authModal" class="modal-backdrop" hidden>
+      <section
+        class="auth-modal"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="authTitle"
+      >
+        <button
+          id="closeModalButton"
+          class="modal-close"
+          type="button"
+          aria-label="Tutup"
+        >
+          &times;
+        </button>
+        <div class="auth-heading">
+          <span class="eyebrow">NineteenJobs account</span>
+          <h2 id="authTitle">Masuk ke akunmu</h2>
+          <p id="authSubtitle">
+            Simpan profil dan rekomendasi kerja favoritmu.
+          </p>
+        </div>
+        <div class="auth-tabs" role="tablist" aria-label="Jenis autentikasi">
+          <button class="auth-tab active" type="button" data-auth-mode="login">
+            Masuk
+          </button>
+          <button class="auth-tab" type="button" data-auth-mode="signup">
+            Daftar
+          </button>
+        </div>
+        <form id="authForm">
+          <label id="nameField" class="form-field" hidden>
+            Nama lengkap
+            <input
+              id="nameInput"
+              type="text"
+              autocomplete="name"
+              placeholder="Contoh: Axelia Agatha"
+            />
+          </label>
+          <label class="form-field">
+            Email
+            <input
+              id="emailInput"
+              type="email"
+              autocomplete="email"
+              placeholder="nama@email.com"
+              required
+            />
+          </label>
+          <label class="form-field">
+            Password
+            <input
+              id="passwordInput"
+              type="password"
+              autocomplete="current-password"
+              placeholder="Minimal 6 karakter"
+              minlength="6"
+              required
+            />
+          </label>
+          <p id="authMessage" class="form-message" role="status"></p>
+          <button
+            id="authSubmit"
+            class="btn btn-primary auth-submit"
+            type="submit"
+          >
+            Masuk
+          </button>
+        </form>
+        <div id="profileView" class="profile-view" hidden>
+          <div id="profileAvatar" class="avatar">A</div>
+          <div>
+            <strong id="profileName">Nama pengguna</strong>
+            <span id="profileEmail">email@example.com</span>
+          </div>
+          <button id="logoutButton" class="btn btn-ghost" type="button">
+            Keluar
+          </button>
+        </div>
+      </section>
+    </div>
+
+    <div id="demoModal" class="modal-backdrop" hidden>
+      <section
+        class="demo-modal"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="demoTitle"
+      >
+        <button
+          id="closeDemoButton"
+          class="modal-close"
+          type="button"
+          aria-label="Tutup demo"
+        >
+          &times;
+        </button>
+        <div class="demo-heading">
+          <span class="eyebrow">Demo NineteenJobs</span>
+          <h2 id="demoTitle">Temukan pekerjaan yang cocok</h2>
+          <p>
+            Gunakan profil contoh ini untuk melihat cara kerja rekomendasi,
+            simpan lowongan, dan apply.
+          </p>
+        </div>
+        <div class="demo-toolbar">
+          <div class="demo-profile">
+            <span class="avatar small">A</span>
+            <div>
+              <strong>Axelia Agatha</strong>
+              <span>Product Designer • Jakarta</span>
+            </div>
+          </div>
+          <label class="demo-filter">
+            Role
+            <select id="demoRoleFilter">
+              <option value="all">Semua role</option>
+              <option value="design">Design</option>
+              <option value="engineering">Engineering</option>
+              <option value="marketing">Marketing</option>
+            </select>
+          </label>
+        </div>
+        <div id="demoJobs" class="demo-jobs">
+          <article class="demo-job" data-role="design">
+            <div>
+              <span class="chip success">96% Match</span>
+              <h3>Senior Product Designer</h3>
+              <p>Northstar Labs • Remote • Rp 14–18 jt</p>
+              <div class="tag-row">
+                <span>Figma</span><span>Design system</span>
+              </div>
+            </div>
+            <div class="demo-job-actions">
+              <button
+                class="save-job mini-btn"
+                type="button"
+                aria-label="Simpan Senior Product Designer"
+              >
+                ♡
+              </button>
+              <button class="apply-job btn btn-primary" type="button">
+                Apply
+              </button>
+            </div>
+          </article>
+          <article class="demo-job" data-role="engineering">
+            <div>
+              <span class="chip success">94% Match</span>
+              <h3>Frontend Engineer</h3>
+              <p>Bytewise Studio • Hybrid • Rp 12–16 jt</p>
+              <div class="tag-row">
+                <span>React</span><span>TypeScript</span>
+              </div>
+            </div>
+            <div class="demo-job-actions">
+              <button
+                class="save-job mini-btn"
+                type="button"
+                aria-label="Simpan Frontend Engineer"
+              >
+                ♡
+              </button>
+              <button class="apply-job btn btn-primary" type="button">
+                Apply
+              </button>
+            </div>
+          </article>
+          <article class="demo-job" data-role="marketing">
+            <div>
+              <span class="chip success">89% Match</span>
+              <h3>Growth Marketing Lead</h3>
+              <p>Bloomify • On-site • Rp 13–17 jt</p>
+              <div class="tag-row"><span>SEO</span><span>CRM</span></div>
+            </div>
+            <div class="demo-job-actions">
+              <button
+                class="save-job mini-btn"
+                type="button"
+                aria-label="Simpan Growth Marketing Lead"
+              >
+                ♡
+              </button>
+              <button class="apply-job btn btn-primary" type="button">
+                Apply
+              </button>
+            </div>
+          </article>
+        </div>
+        <p id="demoMessage" class="demo-message" role="status">
+          Pilih filter untuk melihat rekomendasi yang lebih spesifik.
+        </p>
+      </section>
     </div>
 
     <script>
@@ -375,7 +593,7 @@
       const prefersDark = window.matchMedia(
         "(prefers-color-scheme: dark)",
       ).matches;
-      const storedTheme = localStorage.getItem("hireflow-theme");
+      const storedTheme = localStorage.getItem("nineteenjobs-theme");
 
       function applyTheme(theme) {
         document.body.setAttribute("data-theme", theme);
@@ -396,9 +614,215 @@
           document.body.getAttribute("data-theme") === "dark"
             ? "light"
             : "dark";
-        localStorage.setItem("hireflow-theme", currentTheme);
+        localStorage.setItem("nineteenjobs-theme", currentTheme);
         applyTheme(currentTheme);
       });
+
+      const authModal = document.getElementById("authModal");
+      const authForm = document.getElementById("authForm");
+      const authTitle = document.getElementById("authTitle");
+      const authSubtitle = document.getElementById("authSubtitle");
+      const authSubmit = document.getElementById("authSubmit");
+      const authMessage = document.getElementById("authMessage");
+      const nameField = document.getElementById("nameField");
+      const nameInput = document.getElementById("nameInput");
+      const emailInput = document.getElementById("emailInput");
+      const passwordInput = document.getElementById("passwordInput");
+      const profileView = document.getElementById("profileView");
+      let authMode = "login";
+
+      function getUsers() {
+        return JSON.parse(localStorage.getItem("nineteenjobs-users") || "[]");
+      }
+
+      function openAuth(mode = "login") {
+        authMode = mode;
+        authModal.hidden = false;
+        authForm.hidden = false;
+        profileView.hidden = true;
+        authMessage.textContent = "";
+        document.querySelectorAll("[data-auth-mode]").forEach((tab) => {
+          tab.classList.toggle("active", tab.dataset.authMode === mode);
+        });
+        nameField.hidden = mode !== "signup";
+        nameInput.required = mode === "signup";
+        authTitle.textContent =
+          mode === "signup" ? "Buat akun NineteenJobs" : "Masuk ke akunmu";
+        authSubtitle.textContent =
+          mode === "signup"
+            ? "Mulai simpan profil dan temukan peluang yang cocok."
+            : "Simpan profil dan rekomendasi kerja favoritmu.";
+        authSubmit.textContent = mode === "signup" ? "Buat Akun" : "Masuk";
+        (mode === "signup" ? nameInput : emailInput).focus();
+      }
+
+      function closeAuth() {
+        authModal.hidden = true;
+        authForm.reset();
+        authMessage.textContent = "";
+      }
+
+      function showProfile(user) {
+        authForm.hidden = true;
+        profileView.hidden = false;
+        authTitle.textContent = "Profilmu sudah aktif";
+        authSubtitle.textContent =
+          "Akun tersimpan di perangkat ini dan siap dipakai.";
+        document.getElementById("profileName").textContent = user.name;
+        document.getElementById("profileEmail").textContent = user.email;
+        document.getElementById("profileAvatar").textContent = user.name
+          .charAt(0)
+          .toUpperCase();
+      }
+
+      function refreshAccountButton() {
+        const currentUser = JSON.parse(
+          localStorage.getItem("nineteenjobs-current-user") || "null",
+        );
+        document.getElementById("loginButton").textContent = currentUser
+          ? currentUser.name.split(" ")[0]
+          : "Masuk";
+        document.getElementById("signupButton").textContent = currentUser
+          ? "Profil Saya"
+          : "Coba Gratis";
+      }
+
+      document
+        .querySelectorAll(
+          "#loginButton, #signupButton, #heroSignupButton, #ctaSignupButton",
+        )
+        .forEach((button) => {
+          button.addEventListener("click", () => {
+            const currentUser = JSON.parse(
+              localStorage.getItem("nineteenjobs-current-user") || "null",
+            );
+            if (
+              currentUser &&
+              (button.id === "loginButton" || button.id === "signupButton")
+            ) {
+              openAuth();
+              showProfile(currentUser);
+            } else {
+              openAuth(button.id === "loginButton" ? "login" : "signup");
+            }
+          });
+        });
+
+      const demoModal = document.getElementById("demoModal");
+      const demoMessage = document.getElementById("demoMessage");
+
+      function openDemo() {
+        demoModal.hidden = false;
+        document.getElementById("demoRoleFilter").value = "all";
+        document.querySelectorAll(".demo-job").forEach((job) => {
+          job.hidden = false;
+        });
+        demoMessage.textContent =
+          "Pilih filter untuk melihat rekomendasi yang lebih spesifik.";
+      }
+
+      function closeDemo() {
+        demoModal.hidden = true;
+      }
+
+      document.getElementById("demoButton").addEventListener("click", openDemo);
+      document
+        .getElementById("closeDemoButton")
+        .addEventListener("click", closeDemo);
+      demoModal.addEventListener("click", (event) => {
+        if (event.target === demoModal) closeDemo();
+      });
+
+      document
+        .getElementById("demoRoleFilter")
+        .addEventListener("change", (event) => {
+          const role = event.target.value;
+          let visibleJobs = 0;
+          document.querySelectorAll(".demo-job").forEach((job) => {
+            const visible = role === "all" || job.dataset.role === role;
+            job.hidden = !visible;
+            if (visible) visibleJobs += 1;
+          });
+          demoMessage.textContent = `${visibleJobs} rekomendasi ditemukan untuk profil Axelia.`;
+        });
+
+      document.querySelectorAll(".save-job").forEach((button) => {
+        button.addEventListener("click", () => {
+          const saved = button.classList.toggle("saved");
+          button.textContent = saved ? "♥" : "♡";
+          demoMessage.textContent = saved
+            ? "Lowongan disimpan ke daftar favorit demo."
+            : "Lowongan dihapus dari daftar favorit demo.";
+        });
+      });
+
+      document.querySelectorAll(".apply-job").forEach((button) => {
+        button.addEventListener("click", () => {
+          button.textContent = "Applied ✓";
+          button.classList.add("applied");
+          button.disabled = true;
+          demoMessage.textContent =
+            "Lamaran demo berhasil dikirim. Buat akun untuk menyimpan progress-mu.";
+        });
+      });
+
+      document.querySelectorAll("[data-auth-mode]").forEach((tab) => {
+        tab.addEventListener("click", () => openAuth(tab.dataset.authMode));
+      });
+
+      document
+        .getElementById("closeModalButton")
+        .addEventListener("click", closeAuth);
+      authModal.addEventListener("click", (event) => {
+        if (event.target === authModal) closeAuth();
+      });
+
+      authForm.addEventListener("submit", (event) => {
+        event.preventDefault();
+        const email = emailInput.value.trim().toLowerCase();
+        const password = passwordInput.value;
+        const users = getUsers();
+        const existingUser = users.find((user) => user.email === email);
+
+        if (authMode === "signup") {
+          if (existingUser) {
+            authMessage.textContent =
+              "Email ini sudah terdaftar. Silakan masuk.";
+            return;
+          }
+          const user = { name: nameInput.value.trim(), email, password };
+          localStorage.setItem(
+            "nineteenjobs-users",
+            JSON.stringify([...users, user]),
+          );
+          localStorage.setItem(
+            "nineteenjobs-current-user",
+            JSON.stringify(user),
+          );
+          refreshAccountButton();
+          showProfile(user);
+          return;
+        }
+
+        if (!existingUser || existingUser.password !== password) {
+          authMessage.textContent = "Email atau password belum sesuai.";
+          return;
+        }
+        localStorage.setItem(
+          "nineteenjobs-current-user",
+          JSON.stringify(existingUser),
+        );
+        refreshAccountButton();
+        showProfile(existingUser);
+      });
+
+      document.getElementById("logoutButton").addEventListener("click", () => {
+        localStorage.removeItem("nineteenjobs-current-user");
+        refreshAccountButton();
+        closeAuth();
+      });
+
+      refreshAccountButton();
     </script>
   </body>
 </html>
